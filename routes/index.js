@@ -1,36 +1,40 @@
 var express = require('express');
 var mysql = require('mysql');
+const jwt = require('jsonwebtoken');
 var router = express.Router();
+
+var slug = require('slug');
+var con = mysql.createConnection({
+  host: "127.0.0.1",
+  user: "root",
+  password: "rickyjerry_0",
+  database: "cia"
+});
+console.log("hi");
+con.connect(function(err) {
+  if (err) {
+    throw err ;
+  }
+  else {
+    console.log("Connected!");
+  }
+  
+    //console.error.bind(console, 'MongoDB connection error:');
+
+  //res.render('index', { output: err });
+  //console.log("Connected!");
+  
+  
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'CIA Solves Problems!!' });
   console.log("hello");
   
-  var con = mysql.createConnection({
-    host: "127.0.0.1",
-    user: "root",
-    password: "rickyjerry_0",
-    database: "hmm"
-  });
-  console.log("hi");
-  con.connect(function(err) {
-    if (err) {
-      throw err ;
-    }
-    else {
-      console.log("Connected!");
-    }
-    
-      //console.error.bind(console, 'MongoDB connection error:');
 
-    //res.render('index', { output: err });
-    //console.log("Connected!");
-    
-    
-  });
 
-  con.query("SELECT * FROM Categories", 
+  con.query("SELECT * FROM student_details", 
     function(err, rows, fields) {
       if(!err) {
         console.log(rows);
@@ -44,4 +48,449 @@ router.get('/', function(req, res, next) {
   
 });
 
+
+        router.post('/api/check', verifyToken, function(req, res, next) {
+          jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+            if(err){
+      
+                res.sendStatus(403);
+      
+            }else{
+      
+                res.json(req.body);
+            }
+      
+        });
+        }) ;
+
+/* for component registration */
+
+router.post('/component/reg', verifyToken, function(req, res, next) {
+  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+    if(err){
+
+        res.sendStatus(403);
+
+    }else{
+
+        
+            
+            
+            var qu = 'INSERT INTO item_details values('+null+',"'+req.body.name+'","'+req.body.category+'","'+req.body.subcategory+'","'+req.body.desc+'","'+req.body.img+'","'+req.body.url+'","'+req.body.specs+'","'+req.body.hsn+'",'+req.body.quantity+',"'+req.body.manufacturer+'","'+req.body.modelid+'","'+req.body.dslink+'","'+req.body.tlink+'",'+req.body.cost+',"'+req.body.cab+'","'+req.body.cup+'","'+req.body.room+'",'+req.body.venderid+')' ;
+            console.log(qu);
+        con.query(qu, function(err, rows, fields) {
+          if(!err) {
+            console.log(rows.affectedRows);
+                        res.send(rows);
+          }
+          else {
+            res.send(err) ;
+            
+          }
+        });
+
+    }
+
+});
+}) ;
+
+// end component registration
+
+/* for vendor registration */
+
+router.post('/vendor/reg', verifyToken, function(req, res, next) {
+  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+    if(err){
+
+        res.sendStatus(403);
+
+    }else{
+
+        
+            
+            
+            var qu = 'INSERT INTO vendor_details values('+null+',"'+req.body.name+'",'+req.body.gst+',"'+req.body.phone+'","'+req.body.email+'","'+req.body.url+'")' ;
+            console.log(qu);
+        con.query(qu, function(err, rows, fields) {
+          if(!err) {
+            console.log(rows.affectedRows);
+                        res.send(rows);
+          }
+          else {
+            res.send(err) ;
+            
+          }
+        });
+
+    }
+
+});
+}) ;
+
+// end vendor registration
+
+/* for student registration */
+
+router.post('/student/reg', verifyToken, function(req, res, next) {
+  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+    if(err){
+
+        res.sendStatus(403);
+
+    }else{
+
+        
+            
+            
+            var qu = 'INSERT INTO student_details values("'+req.body.name+'","'+req.body.usn+'","'+req.body.phone+'","'+req.body.email+'")' ;
+            console.log(qu);
+        con.query(qu, function(err, rows, fields) {
+          if(!err) {
+            console.log(rows.affectedRows);
+                        res.send(rows);
+          }
+          else {
+            res.send(err) ;
+            
+          }
+        });
+
+    }
+
+});
+}) ;
+
+// end student registration
+
+/* for faculty registration */
+
+router.post('/faculty/reg', verifyToken, function(req, res, next) {
+  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+    if(err){
+
+        res.sendStatus(403);
+
+    }else{
+
+        
+            
+            
+            var qu = 'INSERT INTO faculty_details values("'+req.body.name+'","'+req.body.phone+'","'+req.body.email+'","'+req.body.id+'")' ;
+            console.log(qu);
+        con.query(qu, function(err, rows, fields) {
+          if(!err) {
+            console.log(rows.affectedRows);
+                        res.send(rows);
+          }
+          else {
+            res.send(err) ;
+            
+          }
+        });
+
+    }
+
+});
+}) ;
+
+// end faculty registration
+
+/* for project registration */
+
+router.post('/project/reg', verifyToken, function(req, res, next) {
+  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+    if(err){
+
+        res.sendStatus(403);
+
+    }else{
+
+        
+            
+            
+            var qu = 'INSERT INTO project_details values('+null+',"'+req.body.name+'","'+req.body.id+'","'+req.body.description+'","'+req.body.itemids+'","'+req.body.img+'","'+req.body.url+'","'+req.body.sdate+'","'+req.body.edate+'","'+req.body.status+'",'+req.body.budget+','+req.body.cost+')' ;
+            console.log(qu);
+        con.query(qu, function(err, rows, fields) {
+          if(!err) {
+            console.log(rows.affectedRows);
+                        res.send(rows);
+          }
+          else {
+            res.send(err) ;
+            
+          }
+        });
+
+    }
+
+});
+}) ;
+
+// end project registration
+/* for trans registration */
+
+router.post('/transaction/reg', verifyToken, function(req, res, next) {
+  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+    if(err){
+
+        res.sendStatus(403);
+
+    }else{
+
+        
+            
+            
+            var qu = 'INSERT INTO item_trans values('+null+','+req.body.pid+',"'+req.body.time+'","'+req.body.type+'","'+req.body.uid+'",'+req.body.cost+','+req.body.gst+','+req.body.value+',"'+req.body.iid+'","'+req.body.iimg+'",'+req.body.budget+','+req.body.quantity+',"'+req.body.date+'","'+req.body.itemid+'")' ;
+            console.log(qu);
+        con.query(qu, function(err, rows, fields) {
+          if(!err) {
+            console.log(rows.affectedRows);
+                        res.send(rows);
+          }
+          else {
+            res.send(err) ;
+            
+          }
+        });
+
+    }
+
+});
+}) ;
+
+// end trnas registration
+// end of all putting
+
+/* for student get */
+
+router.post('/student/get', verifyToken, function(req, res, next) {
+  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+    if(err){
+
+        res.sendStatus(403);
+
+    }else{
+
+        
+            
+            
+            var qu = 'SELECT * FROM student_details' ;
+            console.log(qu);
+        con.query(qu, function(err, rows, fields) {
+          if(!err) {
+           // console.log(rows.affectedRows);
+                        res.json(rows);
+          }
+          else {
+            res.send(err) ;
+            
+          }
+        });
+
+    }
+
+});
+}) ;
+
+// end student get
+/* for faculty get */
+
+router.post('/faculty/get', verifyToken, function(req, res, next) {
+  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+    if(err){
+
+        res.sendStatus(403);
+
+    }else{
+
+        
+            
+            
+            var qu = 'SELECT * FROM faculty_details' ;
+            console.log(qu);
+        con.query(qu, function(err, rows, fields) {
+          if(!err) {
+            //console.log(rows.affectedRows);
+                        res.json(rows);
+          }
+          else {
+            res.send(err) ;
+            
+          }
+        });
+
+    }
+
+});
+}) ;
+
+// end faculty get
+/* for vendor get */
+
+router.post('/vendor/get', verifyToken, function(req, res, next) {
+  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+    if(err){
+
+        res.sendStatus(403);
+
+    }else{
+
+        
+            
+            
+            var qu = 'SELECT * FROM vendor_details' ;
+            console.log(qu);
+        con.query(qu, function(err, rows, fields) {
+          if(!err) {
+           // console.log(rows.affectedRows);
+                        res.json(rows);
+          }
+          else {
+            res.send(err) ;
+            
+          }
+        });
+
+    }
+
+});
+}) ;
+
+// end vendor get
+/* for project get */
+
+router.post('/project/get', verifyToken, function(req, res, next) {
+  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+    if(err){
+
+        res.sendStatus(403);
+
+    }else{
+
+        
+            
+            
+            var qu = 'SELECT * FROM  project_details' ;
+            console.log(qu);
+        con.query(qu, function(err, rows, fields) {
+          if(!err) {
+            //console.log(rows.affectedRows);
+                        res.json(rows);
+          }
+          else {
+            res.send(err) ;
+            
+          }
+        });
+
+    }
+
+});
+}) ;
+
+// end project get
+/* for item get */
+
+router.post('/item/get', verifyToken, function(req, res, next) {
+  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+    if(err){
+
+        res.sendStatus(403);
+
+    }else{
+
+        
+            
+            
+            var qu = 'SELECT * FROM item_details' ;
+            console.log(qu);
+        con.query(qu, function(err, rows, fields) {
+          if(!err) {
+            //console.log(rows.affectedRows);
+                        res.json(rows);
+          }
+          else {
+            res.send(err) ;
+            
+          }
+        });
+
+    }
+
+});
+}) ;
+
+// end item get
+/* for trans get */
+
+router.post('/trans/get', verifyToken, function(req, res, next) {
+  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+    if(err){
+
+        res.sendStatus(403);
+
+    }else{
+
+        
+            
+            
+            var qu = 'SELECT * FROM item_trans' ;
+            console.log(qu);
+        con.query(qu, function(err, rows, fields) {
+          if(!err) {
+            //console.log(rows.affectedRows);
+                        res.json(rows);
+          }
+          else {
+            res.send(err) ;
+            
+          }
+        });
+
+    }
+
+});
+}) ;
+
+// end trans get
+
+/** verifyToken method - this method verifies token */
+function verifyToken(req, res, next){
+  
+  //Request header with authorization key
+  const bearerHeader = req.headers['authorization'];
+  
+  //Check if there is  a header
+  if(typeof bearerHeader !== 'undefined'){
+
+      const bearer = bearerHeader.split(' ');
+      
+      //Get Token arrray by spliting
+      const bearerToken = bearer[1];
+
+      req.token = bearerToken;
+      console.log(req.token);
+      
+      //call next middleware
+      next();
+
+  }else{
+
+      res.sendStatus(403);
+
+  }
+}
 module.exports = router;
