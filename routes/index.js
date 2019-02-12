@@ -31,21 +31,64 @@ con.connect(function(err) {
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'CIA Solves Problems!!' });
   console.log("hello");
+
   
+});
+
+/* Creae API route */
+router.get('/api', (req, res) => {
+  res.json({
+
+      msg: "Welcome to sufi DB, made by CIA"
+
+  });
+
+});
+
+router.post('/api/posts', verifyToken, (req, res) => {
+
+  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+
+      if(err){
+
+          res.sendStatus(403);
+
+      }else{
+
+          res.json({
+
+              msg: "A new post is created",
+
+              authData
+
+          });
+      }
+
+  });
+
+});
+//User signin route 
+router.post('/api/signin', (req, res) => {
+  const user = {
+      id: 1,
+      username: "sufian",
+      password: "sufiboy"
+  }
+  if(user.username==req.body.username && user.password==req.body.password) {
+    jwt.sign({user},'SuperSecRetKey', { expiresIn: 60 * 60 }, (err, token) => {
+      res.json({token});
+  });
+  }
+  else {
+    res.send("Invalid Login")
+  }
+  console.log(req.body.username);
+  console.log(user.username);
+  
+  
+ 
 
 
-  con.query("SELECT * FROM student_details", 
-    function(err, rows, fields) {
-      if(!err) {
-        console.log(rows);
-        
-      }
-      else {
-        console.log("oops");
-        
-      }
-    });
-  
 });
 
 

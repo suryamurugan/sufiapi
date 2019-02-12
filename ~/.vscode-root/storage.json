@@ -1,0 +1,33 @@
+{
+    "telemetry.machineId": "d1774a8311536ba9aa10e92ac45f7e7b625cf2c0ce26115d9163475b5ce7474f",
+    "theme": "vs-dark",
+    "themeBackground": "#1e1e1e",
+    "pickerWorkingDir": "/home/john/Documents",
+    "openedPathsList": {
+        "workspaces2": [
+            "file:///home/john/Documents/node",
+            "file:///home/john/Documents/node/express-locallibrary-tutorial"
+        ],
+        "files2": []
+    },
+    "windowsState": {
+        "openedWindows": [],
+        "lastActiveWindow": {
+            "folderUri": {
+                "$mid": 1,
+                "fsPath": "/home/john/Documents/node",
+                "external": "file:///home/john/Documents/node",
+                "path": "/home/john/Documents/node",
+                "scheme": "file"
+            },
+            "backupPath": "/home/john/Documents/node/express-locallibrary-tutorial/~/.vscode-root/Backups/040c7bab2a5519943f3609772151a87f",
+            "uiState": {
+                "mode": 0,
+                "x": 55,
+                "y": 24,
+                "width": 1311,
+                "height": 744
+            }
+        }
+    }
+}
