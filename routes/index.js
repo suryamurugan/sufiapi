@@ -7,7 +7,7 @@ var slug = require('slug');
 var con = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
-  password: "rickyjerry_0",
+  password: "cia_1234",
   database: "cia"
 });
 console.log("hi");
