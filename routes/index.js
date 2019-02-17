@@ -346,7 +346,7 @@ router.post('/student/get', function(req, res, next) {
 // end student get
 /* for faculty get */
 
-router.post('/faculty/get', verifyToken, function(req, res, next) {
+router.post('/faculty/get', function(req, res, next) {
  /* jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
 
     if(err){
@@ -379,7 +379,7 @@ router.post('/faculty/get', verifyToken, function(req, res, next) {
 // end faculty get
 /* for vendor get */
 
-router.post('/vendor/get', verifyToken, function(req, res, next) {
+router.post('/vendor/get', function(req, res, next) {
 /*  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
 
     if(err){
@@ -412,7 +412,7 @@ router.post('/vendor/get', verifyToken, function(req, res, next) {
 // end vendor get
 /* for project get */
 
-router.post('/project/get', verifyToken, function(req, res, next) {
+router.post('/project/get', function(req, res, next) {
 /*  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
 
     if(err){
@@ -445,7 +445,7 @@ router.post('/project/get', verifyToken, function(req, res, next) {
 // end project get
 /* for item get */
 
-router.post('/item/get', verifyToken, function(req, res, next) {
+router.post('/item/get', function(req, res, next) {
  /* jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
 
     if(err){
@@ -478,7 +478,7 @@ router.post('/item/get', verifyToken, function(req, res, next) {
 // end item get
 /* for trans get */
 
-router.post('/trans/get', verifyToken, function(req, res, next) {
+router.post('/trans/get', function(req, res, next) {
 /*  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
 
     if(err){
@@ -509,6 +509,8 @@ router.post('/trans/get', verifyToken, function(req, res, next) {
 }) ;
 
 // end trans get
+
+
 
 /** verifyToken method - this method verifies token */
 function verifyToken(req, res, next){
