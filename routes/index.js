@@ -509,8 +509,48 @@ router.post('/trans/get', function(req, res, next) {
 }) ;
 
 // end trans get
-
-
+// add column
+router.post('/:id/add', function(req, res, next) {
+  /* jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+  
+      if(err){
+  
+          res.sendStatus(403);
+  
+      }else{ */
+          
+              var table_name = req.params.id  ;
+              var request_type = req.body.type ;
+             
+              if (request_type == 'char' || request_type == 'CHAR') {
+                type = 'varchar(25)' ;
+              }
+              else if(request_type == 'int' || request_type == 'INT'){
+                type = 'INT' ;
+              }
+              else {
+                type = 'varchar(25)' ;
+              }
+              
+              var query = 'ALTER TABLE '+ table_name + ' ADD '+ req.body.column + ' '+ type+' ;' ;
+              
+              console.log(query);
+              con.query(query, function(err, rows, fields) {
+            if(!err) {
+              //console.log(rows.affectedRows);
+                          res.json(rows);
+            }
+            else { 
+              res.send(err) ;
+              
+            }
+          });  
+  /*
+      }
+  
+  });  */
+  }) ;
+  // add column
 
 /** verifyToken method - this method verifies token */
 function verifyToken(req, res, next){
