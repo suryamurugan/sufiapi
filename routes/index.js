@@ -7,7 +7,7 @@ var slug = require('slug');
 var con = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
-  password: "cia_1234",
+  password: "rickyjerry_0",
   database: "cia"
 });
 console.log("hi");
@@ -110,7 +110,7 @@ router.post('/api/signin', (req, res) => {
 /* for component registration */
 
 router.post('/component/reg', verifyToken, function(req, res, next) {
-  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+ /* jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
 
     if(err){
 
@@ -119,7 +119,7 @@ router.post('/component/reg', verifyToken, function(req, res, next) {
     }else{
 
         
-            
+     */       
             
             var qu = 'INSERT INTO item_details values('+null+',"'+req.body.name+'","'+req.body.category+'","'+req.body.subcategory+'","'+req.body.desc+'","'+req.body.img+'","'+req.body.url+'","'+req.body.specs+'","'+req.body.hsn+'",'+req.body.quantity+',"'+req.body.manufacturer+'","'+req.body.modelid+'","'+req.body.dslink+'","'+req.body.tlink+'",'+req.body.cost+',"'+req.body.cab+'","'+req.body.cup+'","'+req.body.room+'",'+req.body.venderid+')' ;
             console.log(qu);
@@ -133,10 +133,10 @@ router.post('/component/reg', verifyToken, function(req, res, next) {
             
           }
         });
-
+/*
     }
 
-});
+}); */
 }) ;
 
 // end component registration
@@ -313,8 +313,8 @@ router.post('/transaction/reg', verifyToken, function(req, res, next) {
 
 /* for student get */
 
-router.post('/student/get', verifyToken, function(req, res, next) {
-  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+router.post('/student/get', function(req, res, next) {
+/*  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
 
     if(err){
 
@@ -323,7 +323,7 @@ router.post('/student/get', verifyToken, function(req, res, next) {
     }else{
 
         
-            
+ */           
             
             var qu = 'SELECT * FROM student_details' ;
             console.log(qu);
@@ -337,17 +337,17 @@ router.post('/student/get', verifyToken, function(req, res, next) {
             
           }
         });
-
+/*
     }
 
-});
+}); */
 }) ;
 
 // end student get
 /* for faculty get */
 
 router.post('/faculty/get', verifyToken, function(req, res, next) {
-  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+ /* jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
 
     if(err){
 
@@ -355,7 +355,7 @@ router.post('/faculty/get', verifyToken, function(req, res, next) {
 
     }else{
 
-        
+    */    
             
             
             var qu = 'SELECT * FROM faculty_details' ;
@@ -370,17 +370,17 @@ router.post('/faculty/get', verifyToken, function(req, res, next) {
             
           }
         });
-
+/*
     }
 
-});
+}); */
 }) ;
 
 // end faculty get
 /* for vendor get */
 
 router.post('/vendor/get', verifyToken, function(req, res, next) {
-  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+/*  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
 
     if(err){
 
@@ -389,7 +389,7 @@ router.post('/vendor/get', verifyToken, function(req, res, next) {
     }else{
 
         
-            
+   */         
             
             var qu = 'SELECT * FROM vendor_details' ;
             console.log(qu);
@@ -403,17 +403,17 @@ router.post('/vendor/get', verifyToken, function(req, res, next) {
             
           }
         });
-
+/*
     }
 
-});
+}); */
 }) ;
 
 // end vendor get
 /* for project get */
 
 router.post('/project/get', verifyToken, function(req, res, next) {
-  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+/*  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
 
     if(err){
 
@@ -421,7 +421,7 @@ router.post('/project/get', verifyToken, function(req, res, next) {
 
     }else{
 
-        
+ */       
             
             
             var qu = 'SELECT * FROM  project_details' ;
@@ -436,17 +436,17 @@ router.post('/project/get', verifyToken, function(req, res, next) {
             
           }
         });
-
+/*
     }
 
-});
+}); */
 }) ;
 
 // end project get
 /* for item get */
 
 router.post('/item/get', verifyToken, function(req, res, next) {
-  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+ /* jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
 
     if(err){
 
@@ -454,7 +454,7 @@ router.post('/item/get', verifyToken, function(req, res, next) {
 
     }else{
 
-        
+     */   
             
             
             var qu = 'SELECT * FROM item_details' ;
@@ -469,17 +469,17 @@ router.post('/item/get', verifyToken, function(req, res, next) {
             
           }
         });
-
+/*
     }
 
-});
+}); */
 }) ;
 
 // end item get
 /* for trans get */
 
 router.post('/trans/get', verifyToken, function(req, res, next) {
-  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
+/*  jwt.verify(req.token, 'SuperSecRetKey', (err, authData)=>{
 
     if(err){
 
@@ -488,7 +488,7 @@ router.post('/trans/get', verifyToken, function(req, res, next) {
     }else{
 
         
-            
+   */         
             
             var qu = 'SELECT * FROM item_trans' ;
             console.log(qu);
@@ -502,10 +502,10 @@ router.post('/trans/get', verifyToken, function(req, res, next) {
             
           }
         });
-
+/*
     }
 
-});
+});  */
 }) ;
 
 // end trans get
